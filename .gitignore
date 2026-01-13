@@ -7,7 +7,6 @@ pnpm-debug.log*
 dist/
 build/
 .env
-.env.*
 .next/
 .nuxt/
 .vercel/
