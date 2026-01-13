@@ -1,4 +1,5 @@
-# Hybrid LLM Gateway 🚀  
+# Hybrid LLM Gateway 🚀
+
 A production-ready hybrid AI gateway that intelligently routes chat requests between a **local LLM (Ollama)** and **DigitalOcean Gradient™ AI Agents**, with Redis-backed API key management and automatic routing based on intent and token size.
 
 ---
@@ -6,18 +7,22 @@ A production-ready hybrid AI gateway that intelligently routes chat requests bet
 ## ✨ Features
 
 - 🧠 **Smart Routing**
+
   - Routes requests to **local Ollama** or **DO AI Agent**
   - Based on token count, intent detection, or explicit override
 
 - 🔐 **API Key Authentication**
+
   - API keys stored and validated via Redis
   - Rate limiting & daily usage limits supported
 
 - ⚡ **Local + Cloud Hybrid**
+
   - Low-latency local inference
   - High-quality cloud inference for complex queries
 
 - 🧩 **RAG-ready**
+
   - Supports DigitalOcean Agents with attached Knowledge Bases
 
 - 🐳 **Dockerized**
@@ -27,23 +32,19 @@ A production-ready hybrid AI gateway that intelligently routes chat requests bet
 
 ## 🏗 Architecture
 
-
-
 Client (curl / frontend)
 |
 v
 ┌───────────────────────┐
-│  Hybrid LLM Gateway   │
-│  (Fastify + Node.js)  │
+│ Hybrid LLM Gateway │
+│ (Fastify + Node.js) │
 └─────────┬─────────────┘
 |
 ┌────────┴─────────┐
-|                  |
-v                  v
-Ollama (Local)   DO AI Agent
+| |
+v v
+Ollama (Local) DO AI Agent
 (deepseek/qwen) (20B / RAG)
-
-
 
 ---
 
@@ -61,7 +62,8 @@ Ollama (Local)   DO AI Agent
 ## 🚀 Quick Start (Local)
 
 ### 1️⃣ Clone the repo
-```bash
+
+````bash
 git clone https://github.com/your-username/hybrid-llm-gateway.git
 cd hybrid-llm-gateway
 
@@ -72,7 +74,7 @@ cd hybrid-llm-gateway
 
 ```bash
 cp .env.example .env
-```
+````
 
 Fill in:
 
@@ -118,9 +120,9 @@ curl http://localhost:3000/v1/chat/completions \
 
 Requests are routed to **DO Agent** when:
 
-* Token count exceeds `LOCAL_MAX_TOKENS`
-* Heavy intent is detected
-* `modelPreference: "large"` is used
+- Token count exceeds `LOCAL_MAX_TOKENS`
+- Heavy intent is detected
+- `modelPreference: "large"` is used
 
 Otherwise, requests are served by **local Ollama**.
 
@@ -128,8 +130,8 @@ Otherwise, requests are served by **local Ollama**.
 
 ## 🔐 API Key Management
 
-* API keys are stored in Redis
-* Seed keys using:
+- API keys are stored in Redis
+- Seed keys using:
 
 ```bash
 node src/scripts/sendAPIKeys.js
@@ -141,8 +143,8 @@ node src/scripts/sendAPIKeys.js
 
 This service is designed to be deployed on:
 
-* DigitalOcean Droplets
-* Any Docker-compatible VM
+- DigitalOcean Droplets
+- Any Docker-compatible VM
 
 > Note: `.env` files are **not committed** to GitHub.
 
@@ -160,4 +162,3 @@ docker system prune -af
 ---
 
 ## 📜 License
-
