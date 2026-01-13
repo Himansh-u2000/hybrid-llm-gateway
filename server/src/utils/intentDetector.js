@@ -1,4 +1,3 @@
-// utils/intentDetector.js
 const HEAVY_KEYWORDS = [
   'explain',
   'explanation',
@@ -16,11 +15,9 @@ const HEAVY_KEYWORDS = [
 
 export function isHeavyIntent(messages) {
   const text = messages
-    .map(m => m.content)
+    .map(m => m.content || '')
     .join(' ')
-    .toLowerCase();   // 🔥 THIS WAS MISSING
+    .toLowerCase();
 
-  return HEAVY_KEYWORDS.some(keyword =>
-    text.includes(keyword)
-  );
+  return HEAVY_KEYWORDS.some(keyword => text.includes(keyword));
 }

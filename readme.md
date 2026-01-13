@@ -1,8 +1,26 @@
 # Hybrid LLM Gateway 🚀
 
-A production-ready hybrid AI gateway that intelligently routes chat requests between a **local LLM (Ollama)** and **DigitalOcean Gradient™ AI Agents**, with Redis-backed API key management and automatic routing based on intent and token size.
+Cost-Aware, OpenAI-Compatible AI Gateway with Intelligent Routing
+
+A production-grade Hybrid LLM Gateway that intelligently routes chat completion requests between a self-hosted local LLM (Ollama) and DigitalOcean Gradient™ AI Agents, optimizing for cost, performance, and quality.
+
+Built to demonstrate real AI infrastructure, backend system design, and production-style routing decisions — not just API calls.
 
 ---
+
+# 🎯 Why This Project Exists
+
+Most AI apps blindly call a single cloud LLM, leading to:
+
+- High and unpredictable costs
+- Vendor lock-in
+- No control over routing or inference strategy
+
+This gateway solves that by acting as a self-hosted, OpenAI-compatible inference layer that:
+
+- Uses free local inference by default
+- Automatically escalates to cloud LLMs only when needed
+- Can be reused across multiple MERN / backend projects
 
 ## ✨ Features
 
@@ -32,19 +50,26 @@ A production-ready hybrid AI gateway that intelligently routes chat requests bet
 
 ## 🏗 Architecture
 
-Client (curl / frontend)
-|
-v
-┌───────────────────────┐
-│ Hybrid LLM Gateway │
-│ (Fastify + Node.js) │
-└─────────┬─────────────┘
-|
-┌────────┴─────────┐
-| |
-v v
-Ollama (Local) DO AI Agent
-(deepseek/qwen) (20B / RAG)
+```
+Client (curl / frontend / SDK)
+        |
+        v
+┌────────────────────────────┐
+│    Hybrid LLM Gateway      │
+│  (Node.js + Fastify)       │
+│  OpenAI-compatible API     │
+└─────────────┬──────────────┘
+              |
+      ┌───────┴────────┐
+      |                |
+      v                v
+┌────────────┐   ┌──────────────────────┐
+│ Ollama     │   │ DigitalOcean Agent   │
+│ (Local)    │   │ (20B+ / RAG-enabled) │
+│ DeepSeek   │   └──────────────────────┘
+└────────────┘
+
+```
 
 ---
 
@@ -63,10 +88,10 @@ Ollama (Local) DO AI Agent
 
 ### 1️⃣ Clone the repo
 
-````bash
+```bash
 git clone https://github.com/your-username/hybrid-llm-gateway.git
 cd hybrid-llm-gateway
-
+```
 
 ---
 
@@ -74,7 +99,7 @@ cd hybrid-llm-gateway
 
 ```bash
 cp .env.example .env
-````
+```
 
 Fill in:
 
@@ -162,3 +187,8 @@ docker system prune -af
 ---
 
 ## 📜 License
+MIT License
+
+## ⭐ Final Note
+This project is intentionally API-first, infra-focused, and reusable across multiple applications.
+A frontend playground can be layered on top without changing the gateway.
